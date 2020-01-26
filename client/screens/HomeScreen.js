@@ -1,5 +1,8 @@
 import React from 'react';
 import {Text, View, ActivityIndicator, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { URL } from '../api';
+
+import { AntDesign } from '@expo/vector-icons';
 
 import styles from '../styles';
 
@@ -16,16 +19,22 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      categories: ["+"]
+      categories: []
     }
   }
   
   static navigationOptions = {
-    title: 'Home'
+    title: 'Home',
+    headerLeft: _ => (<TouchableOpacity
+      style={{marginLeft: 10}}
+      onPress={e => alert("In progress...")}>
+      <AntDesign name="pluscircleo" size={24} color="black" />
+    </TouchableOpacity>
+    ),
   };
 
   componentDidMount() {
-    return fetch('http://e8b1e947.ngrok.io/study')
+    return fetch(URL + '/study')
       .then(response => response.json())
       .then(resp_JSON => {
         this.setState({
@@ -52,13 +61,7 @@ export default class HomeScreen extends React.Component {
           data={this.state.categories}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => {
-                if(item !== '+')
-                  navigate('Card', { item });
-                else {
-                  navigate('AddSet');
-                }
-              }}>
+              onPress={() => navigate('Card', { item })}>
               <Item title={item} />
             </TouchableOpacity>)}
           keyExtractor={(_, index) => ''+index}

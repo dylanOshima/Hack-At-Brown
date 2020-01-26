@@ -14,12 +14,10 @@ const MainNavigator = createStackNavigator({
   AddSet: {screen: AddSetScreen}
 }, {
   defaultNavigationOptions: {
-    // headerStyle: {
-    //   padding: 20,
-    // },
+
     headerRight: () => (<TouchableOpacity
-                        style={{marginHorizontal: 5}}
-                        onPress={e => alert("Wassup bitch")}>
+                        style={{marginRight: 10}}
+                        onPress={e => alert("Also in progress...")}>
                         <FontAwesome name="user-circle-o" size={24} color="black" />
                       </TouchableOpacity>)
   }

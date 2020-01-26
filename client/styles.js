@@ -36,24 +36,15 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
   },
   resultsCard: {
-    marginTop: 60, 
+    marginTop: 60,
     backgroundColor: 'white',
-    padding: 15
+    padding: 15,
+  },
+  userProfile: {
+    width: "20%",
+    flexDirection: 'column',
+    marginHorizontal: 10,
+    alignContent: 'center'
   }
-  // card: {
-  //   backgroundColor: 'purple',
-  //   position: 'absolute',
-  //   padding: 20,
-  //   // marginVertical: 8,
-  //   marginHorizontal: 16,
-  //   fontSize: 16,
-  //   justifyContent: 'center',
-  //   width: "90%",
-  //   height: 150,
-  //   shadowOffset: { width: 1.5, height: 1.5 },
-  //   shadowRadius: 6,
-  //   shadowColor: "#000",
-  //   shadowOpacity: 0.75
-  // }
   
 });

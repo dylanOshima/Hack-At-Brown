@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, View, ActivityIndicator, Text, TouchableWithoutFeedback, Animated } from 'react-native';
-import styles from '../styles';
-import { Ionicons } from '@expo/vector-icons';
 import Swiper from 'react-native-deck-swiper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import styles from '../styles';
+import { URL } from '../api';
 
 const overlayStyle = {
   left: {
@@ -77,7 +79,7 @@ export default class CardScreen extends React.Component {
 
   componentDidMount() {
     let subject = this.props.navigation.state.params.item;
-    return fetch("http://e8b1e947.ngrok.io/study?" + new URLSearchParams({name: subject}).toString())
+    return fetch(URL + "/study?" + new URLSearchParams({name: subject}).toString())
       .then(response => response.json())
       .then(response_JSON => JSON.parse(response_JSON))
       .then(resp => {
@@ -109,6 +111,35 @@ export default class CardScreen extends React.Component {
       )
     }
 
+    const completion = (
+      <View style={{...styles.title, ...styles.resultsCard}}>
+        <Text style={{fontSize: 40, marginBottom: 10}}> Finished! </Text>
+        <Text style={{fontSize: 20, color: 'magenta'}}> 
+          Review in 1 day: {this.state.hard.length}/{this.state.cards.length}
+        </Text>
+        <Text style={{fontSize: 20, color: 'green'}}> 
+          Review in 1 week {this.state.easy.length}/{this.state.cards.length}
+        </Text>
+        <View style={{marginTop: 30}}>
+          <Text style={{fontSize: 20}}>People also studying this:</Text>
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.userProfile}>
+              <MaterialCommunityIcons name="face-profile" size={30} />
+              <Text>Shin-Ji</Text>
+            </View>
+            <View style={styles.userProfile}>
+              <MaterialCommunityIcons name="face-profile" size={30} />
+              <Text>Dylan</Text>
+            </View>
+            <View style={styles.userProfile}>
+              <MaterialCommunityIcons name="face-profile" size={30} />
+              <Text>Naoki</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    )
+
     return (
       <View style={styles.container}>
         <Swiper
@@ -133,16 +164,7 @@ export default class CardScreen extends React.Component {
               {!this.state.finished ? 
                 (<Text style={styles.title}>
                     Finished: {current_index}/{this.state.cards.length}
-                </Text>) :
-                (<View style={{...styles.title, ...styles.resultsCard}}>
-                  <Text style={{fontSize: 40}}> Finished! </Text>
-                  <Text style={{fontSize: 20, color: 'magenta'}}> 
-                    Review in 3 days: {this.state.hard.length}/{this.state.cards.length}
-                  </Text>
-                  <Text style={{fontSize: 20, color: 'green'}}> 
-                    Review in 1 week {this.state.easy.length}/{this.state.cards.length}
-                  </Text>
-                </View>)
+                </Text>) : completion
               }
         </Swiper>
       </View>

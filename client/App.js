@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import ProfileScreen from './screens/ProfileScreen.js';
 import AddSetScreen from './screens/AddSetScreen.js';
+
 import HomeScreen from './screens/HomeScreen';
 import CardScreen from './screens/CardScreen';
 

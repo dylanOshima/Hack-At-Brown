@@ -46,7 +46,6 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation; // To navigate to another page: onPress={() => navigate('Profile', {name: 'Jane'})}
-    
     if(this.state.isLoading) {
       return (
         <View style={{flex: 1, padding: 20}}>

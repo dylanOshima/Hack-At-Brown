@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import styles from '../styles';
 import { URL } from '../api';
 
+
 const overlayStyle = {
   left: {
     title: 'Difficult',
@@ -96,13 +97,11 @@ export default class CardScreen extends React.Component {
   }
 
   swipedLeft = cardIndex => {
-    // console.log('Card ', cardIndex, ' was difficult');
     this.setState({hard: [...this.state.hard, cardIndex]});
   }
 
   render() {
-    const { current_index } = this.state;
-        
+    const { current_index } = this.state;        
     if(this.state.isLoading) {
       return (
         <View style={{flex: 1, padding: 20}}>

@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, json
 from flask_restful import Resource, Api, reqparse, abort
 from flask_cors import CORS
+from bson.json_util import dumps, RELAXED_JSON_OPTIONS
 from database import testDB
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -28,8 +29,37 @@ class ImageProcessing(Resource):
             "answer": "6 inches"
         }
 
-        testDB.addEntry(new_question)
+        testDB.addQuestion(new_question)
         return new_question
+
+class StudySet(Resource):
+    def get(self):
+        # try:
+        name = request.args.get("name")
+        if name:
+            study_set = testDB.getStudySet(name)
+            return dumps(study_set, json_options=RELAXED_JSON_OPTIONS), 200
+        else:
+            study_sets = testDB.getStudyCategories()
+            return study_sets, 200
+        # except:
+        #     print("An error occured fetching study sets.")
+        #     return None, 500
+
+class Questions(Resource):
+    def get(self):
+        try:
+            question_id = request.args.get("id")
+            if not question_id: return [], 400
+            res = testDB.getQuestions(question_id)
+            return res
+        except:
+            print("An error occured.")
+            return res, 500
+    
+    def post(self):
+        # TODO
+        return None
 
 # # Login(Resource) verifies user's code
 # class LogIn(Resource):
@@ -108,6 +138,8 @@ class ImageProcessing(Resource):
 
 api.add_resource(Test, '/test')
 api.add_resource(ImageProcessing, '/sendimage')
+api.add_resource(Questions, '/questions')
+api.add_resource(StudySet, '/study')
 
 # api.add_resource(LogIn, '/login')
 # api.add_resource(SendCode, '/sendcode')

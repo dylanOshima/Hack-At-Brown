@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    fontFamily: 'Futura',
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -13,7 +14,9 @@ export default StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    fontSize: 16,
+    fontSize: 20,
+    borderRadius: 8,
+    textAlign: 'center'
   },
   title: {
     alignSelf: 'center',
@@ -29,7 +32,13 @@ export default StyleSheet.create({
   },
   cardText: {
     textAlign: 'center',
-    fontSize: 50,
+    fontSize: 30,
+    paddingHorizontal: 10,
+  },
+  resultsCard: {
+    marginTop: 60, 
+    backgroundColor: 'white',
+    padding: 15
   }
   // card: {
   //   backgroundColor: 'purple',

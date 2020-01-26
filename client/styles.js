@@ -45,6 +45,12 @@ export default StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 10,
     alignContent: 'center'
+  },
+  profile: {
+    padding: 25,
+  },
+  profilePic: {
+    width: '20%',
+    height: '20%'
   }
-  
 });

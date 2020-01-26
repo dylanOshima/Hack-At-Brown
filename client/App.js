@@ -1,8 +1,11 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, NavigationActions } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { FontAwesome } from '@expo/vector-icons';
+
+import ProfileScreen from './screens/ProfileScreen.js';
+import AddSetScreen from './screens/AddSetScreen.js';
 
 import HomeScreen from './screens/HomeScreen';
 import CardScreen from './screens/CardScreen';
@@ -10,14 +13,13 @@ import CardScreen from './screens/CardScreen';
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Card: {screen: CardScreen},
+  AddSet: {screen: AddSetScreen},
+  ProfileScreen: {screen: ProfileScreen}
 }, {
   defaultNavigationOptions: {
-    // headerStyle: {
-    //   padding: 20,
-    // },
     headerRight: () => (<TouchableOpacity
-                        style={{marginHorizontal: 5}}
-                        onPress={e => alert("Wassup bitch")}>
+                        style={{marginRight: 10}}
+                        onPress={_ => console.log(NavigationActions.navigate)}> 
                         <FontAwesome name="user-circle-o" size={24} color="black" />
                       </TouchableOpacity>)
   }

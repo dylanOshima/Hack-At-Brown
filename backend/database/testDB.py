@@ -10,10 +10,45 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = 'mongodb+srv://admin:12345@cluster0-wtnnv.mongodb.net/test?retryWrites=true&w=majority'
 mongo = PyMongo(app)
 
-def addEntry(new_entry):
-    questions = mongo.db.questions
-    questions.insert_one(new_entry)
-    return
+def addQuestion(new_entry):
+  questions = mongo.db.questions
+  questions.insert_one(new_entry)
+  return True
+
+def getQuestions(id=""):
+  if type(id) == 'str':
+    contents = list(mongo.db.questions.find(id))
+    return contents
+  else:
+    return []
+
+'''
+** Study Set Schema
+name: string
+cards: [
+  {
+    _id: Str,
+    question: Str,
+    answer: Str
+  }
+]
+members: [name1, name2, name3]
+
+'''
+'''returns a study set object'''
+def getStudySet(name):
+  if not name: return None
+  study_set = mongo.db.study_sets.find_one({'name': name})
+  return study_set
+
+'''returns all available names of study sets'''
+def getStudyCategories():
+  study_sets = list(mongo.db.study_sets.find())
+  return [item['name'] for item in study_sets]
+
+def createSet():
+  study_sets = mongo.db.study_sets
+  study_sets.insert_one()
 
 # def verify(email, code):
 #     users = mongo.db.users
@@ -54,18 +89,6 @@ def addEntry(new_entry):
 #         ele = {'email': content['email'], 
 #                'code': content['code']}
 #         returnList.append(ele)
-#     return returnList
-
-# def getEntries():
-#     contents = list(mongo.db.entries.find())
-#     returnList = []
-#     for content in contents:
-#         if content['receiver_email'] == '':
-#             ele = {'giver_email': content['giver_email'], 
-#                    'receiver_email': content['receiver_email'],
-#                    'location': content['location'],
-#                    'time': content['time']}
-#             returnList.append(ele)
 #     return returnList
 
 

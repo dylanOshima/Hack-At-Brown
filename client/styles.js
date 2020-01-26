@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    fontFamily: 'Futura',
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -13,7 +14,9 @@ export default StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    fontSize: 16,
+    fontSize: 20,
+    borderRadius: 8,
+    textAlign: 'center'
   },
   title: {
     alignSelf: 'center',
@@ -29,22 +32,25 @@ export default StyleSheet.create({
   },
   cardText: {
     textAlign: 'center',
-    fontSize: 50,
+    fontSize: 30,
+    paddingHorizontal: 10,
+  },
+  resultsCard: {
+    marginTop: 60,
+    backgroundColor: 'white',
+    padding: 15,
+  },
+  userProfile: {
+    width: "20%",
+    flexDirection: 'column',
+    marginHorizontal: 10,
+    alignContent: 'center'
+  },
+  profile: {
+    padding: 25,
+  },
+  profilePic: {
+    width: '20%',
+    height: '20%'
   }
-  // card: {
-  //   backgroundColor: 'purple',
-  //   position: 'absolute',
-  //   padding: 20,
-  //   // marginVertical: 8,
-  //   marginHorizontal: 16,
-  //   fontSize: 16,
-  //   justifyContent: 'center',
-  //   width: "90%",
-  //   height: 150,
-  //   shadowOffset: { width: 1.5, height: 1.5 },
-  //   shadowRadius: 6,
-  //   shadowColor: "#000",
-  //   shadowOpacity: 0.75
-  // }
-  
 });

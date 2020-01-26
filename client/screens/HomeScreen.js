@@ -1,45 +1,69 @@
 import React from 'react';
-import { SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import {Text, View, ActivityIndicator, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { URL } from '../api';
 
-import Item from '../components/Item';
-import Header from '../components/Header';
+import { AntDesign } from '@expo/vector-icons';
+
 import styles from '../styles';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Bio',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Math',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'CompSci',
-  },
-];
+function Item({ title }) {
+  return (
+    <View style={styles.item}>
+      <Text>{title}</Text>
+    </View>
+  );
+}
 
 export default class HomeScreen extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      isLoading: true,
+      categories: []
+    }
+  }
+  
   static navigationOptions = {
-    title: 'Home'
+    title: 'Home',
+    headerLeft: _ => (<TouchableOpacity
+      style={{marginLeft: 10}}
+      onPress={e => alert("In progress...")}>
+      <AntDesign name="pluscircleo" size={24} color="black" />
+    </TouchableOpacity>
+    ),
   };
+
+  componentDidMount() {
+    return fetch(URL + '/study')
+      .then(response => response.json())
+      .then(resp_JSON => {
+        this.setState({
+          isLoading: false,
+          categories: resp_JSON.concat(this.state.categories)
+        });
+      }).catch(err => console.log(err));
+  }
 
   render() {
     const { navigate } = this.props.navigation; // To navigate to another page: onPress={() => navigate('Profile', {name: 'Jane'})}
-    
+    if(this.state.isLoading) {
+      return (
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>    
+      )
+    }
     return (
       <SafeAreaView style={styles.container}>
-        {/* <Header title={HomeScreen.navigationOptions.title} navigate={navigate} /> */}
         <FlatList
           style={{width: '100%'}}
-          data={DATA}
+          data={this.state.categories}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigate('Card', {title: item.title})}>
-              <Item title={item.title} />
+              onPress={() => navigate('Card', { item })}>
+              <Item title={item} />
             </TouchableOpacity>)}
-          keyExtractor={item => item.id}
+          keyExtractor={(_, index) => ''+index}
         />
       </SafeAreaView>
     );
